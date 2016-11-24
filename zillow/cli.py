@@ -1,6 +1,7 @@
 import argparse
 import ConfigParser
 import os
+import xml.dom.minidom
 
 import requests
 
@@ -21,8 +22,11 @@ class Zillow(object):
         }
         r = requests.get(url, params=params)
         print r.url
-        print r.status_code
-        print r.text
+        print "-" * 80
+        print "Status code: %d" % r.status_code
+        print "-" * 80
+        doc = xml.dom.minidom.parseString(r.text)
+        print doc.toprettyxml()
 
 
 def main():
